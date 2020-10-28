@@ -16,6 +16,8 @@ const analytics = app.analytics();
 
 // My RC flag.
 const FLAG_ALLOWED_TO_SEE = 'allowed_to_see';
+// this will be defaulted to false in this code, but on RC it will be true.
+const FLAG_TEST_ENABLED = 'test_enabled';
 
 const useRemoteConfig = () => {
   const [userProperties, setUserProperties] = useState<UserProperties>({ user: null });
@@ -32,6 +34,8 @@ const useRemoteConfig = () => {
       remoteConfig.defaultConfig = {
         // Default the value to false to ensure the feature is never seen.
         [FLAG_ALLOWED_TO_SEE]: false,
+        // in remote config this flag is set to true.
+        [FLAG_TEST_ENABLED]: false,
       };
       remoteConfig.settings = {
         fetchTimeoutMillis: 1000,
@@ -70,7 +74,7 @@ const App: FC = () => {
       <h2>User Properties from state:</h2>
       <pre>{JSON.stringify(userProperties, null, 2)}</pre>
       <h2>Remote Config result:</h2>
-      <pre>{JSON.stringify(remoteConfigValues)}</pre>
+      <pre>{JSON.stringify(remoteConfigValues, null, 2)}</pre>
     </>
   );
 }
